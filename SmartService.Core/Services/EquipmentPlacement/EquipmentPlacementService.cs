@@ -1,6 +1,7 @@
 namespace SmartService.Core.Services.EquipmentPlacement;
 
 using Database;
+using ExecutionResult;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Models.Dto.CreateEquipmentPlacementContract;
@@ -19,19 +20,21 @@ public class EquipmentPlacementService : IEquipmentPlacementService
         _dbContext = dbContext;
     }
     
-    public async  Task CreateEquipmentPlacementContractAsync(CreateEquipmentPlacementContractRequestDto request)
+    public async  Task<ExecutionResult> CreateEquipmentPlacementContractAsync(CreateEquipmentPlacementContractRequestDto request)
     {
         try
         {
-
+            return new ExecutionResult();
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
+            return new ExecutionResult(
+                new ErrorInfo($"Error while executing {nameof(CreateEquipmentPlacementContractAsync)}"));
         }
     }
 
-    public async Task<List<GetEquipmentPlacementContractsResponseDto>> GetEquipmentPlacementContractsAsync()
+    public async Task<ExecutionResult<List<GetEquipmentPlacementContractsResponseDto>>> GetEquipmentPlacementContractsAsync()
     {
         try
         {
@@ -44,12 +47,13 @@ public class EquipmentPlacementService : IEquipmentPlacementService
                 })
                 .ToListAsync();
 
-            return contracts;
+            return new ExecutionResult<List<GetEquipmentPlacementContractsResponseDto>>(contracts);
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
-            throw;
+            return new ExecutionResult<List<GetEquipmentPlacementContractsResponseDto>>(
+                new ErrorInfo($"Error while executing {nameof(CreateEquipmentPlacementContractAsync)}"));
         }
     }
 }
