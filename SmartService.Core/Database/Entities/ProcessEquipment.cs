@@ -1,6 +1,6 @@
 namespace SmartService.Core.Database.Entities;
 
-public class ProcessEquipment : BaseEntity
+public class ProcessEquipment
 {
     public string Code { get; set; }
     public string Name { get; set; }

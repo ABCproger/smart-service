@@ -1,6 +1,6 @@
 namespace SmartService.Core.Database.Entities;
 
-public class ProductionFacility : BaseEntity
+public class ProductionFacility
 {
     public string Code { get; set; }
     public string Name { get; set; }

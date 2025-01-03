@@ -14,7 +14,7 @@ public class BaseDbContext(DbContextOptions<BaseDbContext> options) : DbContext(
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BaseDbContext).Assembly);
         modelBuilder.Seed();
         modelBuilder.OnDeleteRestrictRules();
         modelBuilder.AddNamingRules();
