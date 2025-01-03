@@ -4,6 +4,8 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>SmartService</RootNamespace>
+        <UserSecretsId>430b7100-d80c-4efd-a694-1cfe14da2705</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,6 +14,10 @@
 
     <ItemGroup>
       <Folder Include="Controllers\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SmartService.Core\SmartService.Core.csproj" />
     </ItemGroup>
 
 </Project>
