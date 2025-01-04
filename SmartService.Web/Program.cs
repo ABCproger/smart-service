@@ -1,13 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using SmartService.Authentication;
 using SmartService.Core.Database;
 using SmartService.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 builder.Services.SetupServices(builder.Configuration);
 

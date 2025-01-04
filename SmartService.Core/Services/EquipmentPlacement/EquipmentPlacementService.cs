@@ -1,6 +1,7 @@
 namespace SmartService.Core.Services.EquipmentPlacement;
 
 using Database;
+using Database.Entities;
 using ExecutionResult;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -24,7 +25,44 @@ public class EquipmentPlacementService : IEquipmentPlacementService
     {
         try
         {
-            return new ExecutionResult();
+            var facility = await _dbContext.ProductionFacilities
+                .Include(f => f.EquipmentPlacementContracts)
+                .ThenInclude(с => с.ProcessEquipment)
+                .FirstOrDefaultAsync(f => f.Code == request.ProductionFacilityCode);
+
+            if (facility == null)   
+            {
+                return new ExecutionResult(new ErrorInfo("Production facility not found."));
+            }
+            
+            var equipment = await _dbContext.ProcessEquipments
+                .FirstOrDefaultAsync(e => e.Code == request.ProccessQuipmentCode);
+
+            if (equipment == null)
+            {
+                return new ExecutionResult(new ErrorInfo("Process equipment not found."));
+            }
+            
+            var occupiedArea = facility.EquipmentPlacementContracts.Sum(c => 
+                c.EquipmentUnits * c.ProcessEquipment.Area);
+            
+            var requiredArea = request.Quantity * equipment.Area;
+            
+            if (occupiedArea + requiredArea > facility.StandardArea)
+            {
+                return new ExecutionResult(new ErrorInfo("Insufficient space in the production facility."));
+            }
+            
+            var newContract = new EquipmentPlacementContract
+            {
+                ProductionFacilityCode = facility.Code,
+                ProcessEquipmentCode = equipment.Code,
+                EquipmentUnits = request.Quantity
+            };
+
+            _dbContext.EquipmentPlacementContracts.Add(newContract);
+            await _dbContext.SaveChangesAsync();
+            return new ExecutionResult(new InfoMessage("Equipment placement was created successfully"));
         }
         catch (Exception e)
         {
