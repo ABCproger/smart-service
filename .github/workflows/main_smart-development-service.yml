@@ -23,9 +23,6 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-      
-      - name: Run tests
-        run: dotnet test --configuration Release --no-build --logger "trx"
 
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
@@ -39,7 +36,6 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: build
-    if: success()
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}

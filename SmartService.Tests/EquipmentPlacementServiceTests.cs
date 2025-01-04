@@ -150,7 +150,7 @@ public class EquipmentPlacementServiceTests
         var dbContext = new BaseDbContext(_dbContextOptions);
         var service = new EquipmentPlacementService(_mockLogger.Object, dbContext);
 
-        await ClearDatabaseAsync(dbContext);  // Clear any existing data before each test
+        await ClearDatabaseAsync(dbContext);
 
         var facility = new ProductionFacility
         {
