@@ -1,10 +1,11 @@
 namespace SmartService.Core.Services.EquipmentPlacement;
 
+using ExecutionResult;
 using Models.Dto.CreateEquipmentPlacementContract;
 using Models.Dto.GetEquipmentPlacementContracts;
 
 public interface IEquipmentPlacementService
 {
-    Task CreateEquipmentPlacementContractAsync(CreateEquipmentPlacementContractRequestDto request);
-    Task<List<GetEquipmentPlacementContractsResponseDto>>GetEquipmentPlacementContractsAsync();
+    Task<ExecutionResult> CreateEquipmentPlacementContractAsync(CreateEquipmentPlacementContractRequestDto request);
+    Task<ExecutionResult<List<GetEquipmentPlacementContractsResponseDto>>>GetEquipmentPlacementContractsAsync();
 }
