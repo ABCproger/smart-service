@@ -1,6 +1,7 @@
 namespace SmartService.Extensions;
 
 using Authentication;
+using BackgroundServices;
 using Core.Database;
 using Core.Services.EquipmentPlacement;
 using FluentValidation;
@@ -55,8 +56,10 @@ public static class ServiceCollectionExtensions
         
         services.AddTransient<IEquipmentPlacementService, EquipmentPlacementService>();
 
-
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<BaseDbContext>();
+        
+        services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
+        services.AddHostedService<BackgroundTaskProcessor>();
     }
 }

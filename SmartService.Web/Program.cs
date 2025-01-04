@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using SmartService.Authentication;
 using SmartService.Core.Database;
 using SmartService.Extensions;
 
