@@ -4,6 +4,7 @@ using SmartService.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables();
 builder.Services.SetupServices(builder.Configuration);
 
 var app = builder.Build();
