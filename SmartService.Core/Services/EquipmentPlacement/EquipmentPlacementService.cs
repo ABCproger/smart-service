@@ -91,7 +91,7 @@ public class EquipmentPlacementService : IEquipmentPlacementService
         {
             _logger.LogError(e.Message);
             return new ExecutionResult<List<GetEquipmentPlacementContractsResponseDto>>(
-                new ErrorInfo($"Error while executing {nameof(CreateEquipmentPlacementContractAsync)}"));
+                new ErrorInfo($"Error while executing {nameof(GetEquipmentPlacementContractsAsync)}"));
         }
     }
 }
